@@ -1,15 +1,15 @@
 # Ad Metric Design Document
 Author: Justin Yoon
-Last Updated: 12/1/2021
+Last Updated: 12/4/2021
 
 
-## Goals
+## Goal
 
-StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
+The goal here is to create a data pipeline that provides ad metric data for a dashboard application that allows users to see how their ads are performing. The data pipeline should aim to be able to successfully complete any query within 10 seconds. Due to the fact that the data is sourced via an external ingestion API, there will be no hard requirements on data freshness as of now.
 
-## Create files and folders
+## Tradeoffs
 
-The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
+The pipeline will favor query speed over data freshness. This is due to the fact that we have no control over 
 
 ## Switch to another file
 
