@@ -1,19 +1,33 @@
 # Ad Metric Design Document
+
 Author: Justin Yoon
-Last Updated: 12/4/2021
+
+Last Updated: 12/6/2021
 
 
 ## Goal
 
-The goal here is to create a data pipeline that provides ad metric data for a dashboard application that allows users to see how their ads are performing. The data pipeline should aim to be able to successfully complete any query within 10 seconds. Due to the fact that the data is sourced via an external ingestion API, there will be no hard requirements on data freshness as of now.
+The goal here is to create a data pipeline that provides ad metric data for a dashboard application that allows users to see how their ads are performing.
+
+Due to the fact that the data is sourced via an external ingestion API, there will be no hard requirements on data freshness as of now.
+
+* Max response time for a query: 10 seconds
+* Availability: 99.999%
 
 ## Tradeoffs
 
-The pipeline will favor query speed over data freshness. This is due to the fact that we have no control over 
+The pipeline will favor query speed over data freshness. This is for a few reasons.
 
-## Switch to another file
+The first is that our data is sourced from an external API which we do not control. Without any SLA's between us and this API we cannot make any guarantees on data freshness as it is.
 
-All your files and folders are presented as a tree in the file explorer. You can switch from one to another by clicking a file in the tree.
+Second, the dashboard application that utilizes this data is only concerned with aggregated data at a hourly granularity at a minimum. This means there's less value on having fully up-to-date data and users should already expect that data for the current hour to not be complete anyways.
+
+## Assumptions Made
+
+* There are 100M impressions and 1M click events per day.
+* All ads, impressions, sessions, and users have their own unique ID's.
+* Ad metric data is provided via an external ingestion API which consumes the ad data directly from the users' machines. They are then batched up as TSV files and stored in an S3 bucket which we have shared access to.
+* The dashboard application will not require data aggregated at a granularity smaller than hourly in the future.
 
 ## Rename a file
 
