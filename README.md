@@ -39,126 +39,78 @@ This is the S3 bucket that the ingestion API will write to.
 
 * The bucket should only allow the ingestion API to write new files to the bucket.
 * The bucket should give read-only access to the IAM role running on the EMR cluster.
-* Server side encryption should be configured since the data contains Personal Data.
+* Encryption at rest should be configured since the data contains Personal Data.
 * Intelligent Tiering should be configured so that older data files are moved into cold storage.
 * Configure server access logging.
 * Configure S3 bucket notifications so that "s3:ObjectCreated:*" events are sent to our SQS queue.
 
 ### SQS
 
-"s3:ObjectCreated:*" event notifications are sent to an SQS queue so that they can be processed by our Spark Job. A queue is utilized because it allows us to persist the event until we are done processing it (therefore guaranteeing we don't miss data for processing) and we can use long-polling to process multiple files at the same time 
+"s3:ObjectCreated:*" event notifications are sent to an SQS queue so that they can be processed by our Spark Job. A queue is utilized because it allows us to persist the event until we are done processing it (therefore guaranteeing we don't miss data for processing) and we can use long-polling to process multiple files at the same time.
+
+* Queue should be a FIFO queue so that there are no duplicate messages.
+* Content-based deduplication should be enabled.
+* Encryption at rest should be configured.
+* Configure a dead-letter queue for the queue to handle cases where the message processing repeatedly fails
 
 
-# Synchronization
+### EMR
 
-Synchronization is one of the biggest features of StackEdit. It enables you to synchronize any file in your workspace with other files stored in your **Google Drive**, your **Dropbox** and your **GitHub** accounts. This allows you to keep writing on other devices, collaborate with people you share the file with, integrate easily into your workflow... The synchronization mechanism takes place every minute in the background, downloading, merging, and uploading file modifications.
+The EMR cluster runs an Apache Spark job which polls the SQS queue for messages, reads the TSV files from S3, transforms the data, and then loads it into the Aurora Postgresql instance. EMR is used to make cluster management easier as well as for its built-in integrations with S3 (via EMRFS) and auto scaling capabilities.
 
-There are two types of synchronization and they can complement each other:
+* Auto scaling should be configured for the cluster.
+* Apache Spark needs to be installed on the cluster.
 
-- The workspace synchronization will sync all your files, folders and settings automatically. This will allow you to fetch your workspace on any other device.
-	> To start syncing your workspace, just sign in with Google in the menu.
+### Aurora Postgresql
 
-- The file synchronization will keep one file of the workspace synced with one or multiple files in **Google Drive**, **Dropbox** or **GitHub**.
-	> Before starting to sync files, you must link an account in the **Synchronize** sub-menu.
+The Aurora cluster is the final landing place of the ad metric data. The dashboard application will use SQL queries to query the Aurora database for its front end. Aurora was chosen for its performance, storage scalability, and ease of configuring replication and high availability. Aurora also allows you to provision an Aurora global database which allows for the creation of up to five read-only replica clusters in other AWS regions. This would increase the fault tolerance, as well as lower query latency in other regions, of the Aurora cluster.
 
-## Open a file
+## Postgresql Schema
 
-You can open a file from **Google Drive**, **Dropbox** or **GitHub** by opening the **Synchronize** sub-menu and clicking **Open from**. Once opened in the workspace, any modification in the file will be automatically synced.
+All tables are partitioned on ad_id.
 
-## Save a file
+ad_metrics
+ - ad_id int
+ - hour timestamp
+ - total_impressions int
+ - total_clicks int
+ - total_sessions int
 
-You can save any file of the workspace to **Google Drive**, **Dropbox** or **GitHub** by opening the **Synchronize** sub-menu and clicking **Save on**. Even if a file in the workspace is already synced, you can save it to another location. StackEdit can sync one file with multiple locations and accounts.
+users(unique constraint on all three columns)
+ - ad_id int
+ - hour timestamp
+ - user_id varchar
 
-## Synchronize a file
+## Spark Job
 
-Once your file is linked to a synchronized location, StackEdit will periodically synchronize it by downloading/uploading any modification. A merge will be performed if necessary and conflicts will be resolved.
+The Spark job would ideally be written in Scala since that is the language Spark is written in and the language with the most built-in support for the Spark engine.
 
-If you just have modified your file and you want to force syncing, click the **Synchronize now** button in the navigation bar.
+### Pseudocode (not representative of Scala syntax at all)
 
-> **Note:** The **Synchronize now** button is disabled if you have no file to synchronize.
-
-## Manage file synchronization
-
-Since one file can be synced with multiple locations, you can list and manage synchronized locations by clicking **File synchronization** in the **Synchronize** sub-menu. This allows you to list and remove synchronized locations that are linked to your file.
-
-
-# Publication
-
-Publishing in StackEdit makes it simple for you to publish online your files. Once you're happy with a file, you can publish it to different hosting platforms like **Blogger**, **Dropbox**, **Gist**, **GitHub**, **Google Drive**, **WordPress** and **Zendesk**. With [Handlebars templates](http://handlebarsjs.com/), you have full control over what you export.
-
-> Before starting to publish, you must link an account in the **Publish** sub-menu.
-
-## Publish a File
-
-You can publish your file by opening the **Publish** sub-menu and by clicking **Publish to**. For some locations, you can choose between the following formats:
-
-- Markdown: publish the Markdown text on a website that can interpret it (**GitHub** for instance),
-- HTML: publish the file converted to HTML via a Handlebars template (on a blog for example).
-
-## Update a publication
-
-After publishing, StackEdit keeps your file linked to that publication which makes it easy for you to re-publish it. Once you have modified your file and you want to update your publication, click on the **Publish now** button in the navigation bar.
-
-> **Note:** The **Publish now** button is disabled if your file has not been published yet.
-
-## Manage file publication
-
-Since one file can be published to multiple locations, you can list and manage publish locations by clicking **File publication** in the **Publish** sub-menu. This allows you to list and remove publication locations that are linked to your file.
-
-
-# Markdown extensions
-
-StackEdit extends the standard Markdown syntax by adding extra **Markdown extensions**, providing you with some nice features.
-
-> **ProTip:** You can disable any **Markdown extension** in the **File properties** dialog.
-
-
-## SmartyPants
-
-SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
-
-|                |ASCII                          |HTML                         |
-|----------------|-------------------------------|-----------------------------|
-|Single backticks|`'Isn't this fun?'`            |'Isn't this fun?'            |
-|Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
-|Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
-
-
-## KaTeX
-
-You can render LaTeX mathematical expressions using [KaTeX](https://khan.github.io/KaTeX/):
-
-The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral
-
-$$
-\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
-$$
-
-> You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
-
-
-## UML diagrams
-
-You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
-
-```mermaid
-sequenceDiagram
-Alice ->> Bob: Hello Bob, how are you?
-Bob-->>John: How about you John?
-Bob--x Alice: I am good thanks!
-Bob-x John: I am good thanks!
-Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
-
-Bob-->Alice: Checking with John...
-Alice->John: Yes... John, how are you?
 ```
+void main {
+	while(true) {
+	  messages = sqsClient.getMessages(waitTimeSeconds = 20, maxNumberOfMessages = 10);
+	  if (!messages.isEmpty()) {
+		  dataset = spark.read.csv(messages);
+		  dataset = dataset.distinct(); // drop duplicates
+		  dataset = truncateTimestamp(dataset);
+		  adMetrics = dataset.groupBy("ad_id", "hour").agg(
+		  	countDistinct(impression_id).as("total_impressions"),
+			sum(when("event" === "click", 1).otherwise(0)).as("total_clicks"),
+			countDistinct("ip").as("total_sessions)
+		  );
+		  users = dataset.select("ad_id", "hour", "user_id").distinct();
+		  execute(adMetrics, INSERT_INTO_AD_METRICS);
+		  execute(users, INSERT_INTO_USERS);
+	  }
+	}
+}
 
-And this will produce a flow chart:
+// Removes the minute and second portion of the timestamp field so that it is at hourly granularity.
+// Returned dataset has the same schema but timestamp is renamed to hour
+DataSet truncateTimestamp(dataset);
 
-```mermaid
-graph LR
-A[Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
+// Executes the sql code using the dataset as parameters
+void execute(dataset, sql);
 ```
