@@ -1,0 +1,28 @@
+ad_id	timestamp	event	impression_id	user_id	ip	user_agent_string
+100	2019-01-03 00:00:10 UTC	view	1efba3513ef3	aar3nbl	107.77.173.4	Mozilla/5.0 (Linux; Android 5.0; SM-G900F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.99 Mobile Safari/537.36
+101	2019-01-03 05:00:12 UTC	view	2e2173a3bc74	znfuelkg	69.145.118.237	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-03 05:00:15 UTC	click	2e2173a3bc74	znfuelkg	69.145.118.237	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-03 07:32:47 UTC	view	abf0513396d3	58ghwkf	73.118.149.203	Mozilla/5.0 (Linux; Android 9; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.76 Mobile Safari/537.36
+102	2019-01-03 08:58:34 UTC	view	4f78f84b2db3	iuhj4hg	73.118.149.203	Mozilla/5.0 (Linux; Android 9; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.76 Mobile Safari/537.36
+102	2019-01-03 08:58:44 UTC	click	4f78f84b2db3	iuhj4hg	73.118.149.203	Mozilla/5.0 (Linux; Android 9; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.76 Mobile Safari/537.36
+100	2019-01-03 12:59:12 UTC	click	12d05d346186	48fnwkf	47.223.230.131	Mozilla/5.0 (iPad; CPU OS 12_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+100	2019-01-03 14:19:14 UTC	view	12d05d346186	48fnwkf	47.223.230.131	Mozilla/5.0 (iPad; CPU OS 12_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-03 18:32:33 UTC	view	26a029ba58b2	lrnhbvio	71.192.251.93	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0
+100	2019-01-03 14:29:14 UTC	view	346186def889	48fnwkf	47.223.230.131	Mozilla/5.0 (iPad; CPU OS 12_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+102	2019-01-03 21:47:52 UTC	view	f702d1e333c0	04jfgwh	99.87.238.28	Mozilla/5.0 AppleWebKit/101.22 HeadlessChrome/80 Safari/537 Prerender (+https://github.com/prerender/prerender)
+102	2019-01-03 21:47:53 UTC	view	2826efaddda5	4fqkdjh	99.87.238.28	Mozilla/5.0 AppleWebKit/101.22 HeadlessChrome/80 Safari/537 Prerender (+https://github.com/prerender/prerender)
+102	2019-01-03 21:47:54 UTC	view	4f01d245119e	pfgnvhj	99.87.238.28	Mozilla/5.0 AppleWebKit/101.22 HeadlessChrome/80 Safari/537 Prerender (+https://github.com/prerender/prerender)
+100	2019-01-03 22:34:32 UTC	view	2e83741dfc54	26fgjvsk	69.145.118.237	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-03 23:59:02 UTC	view	2e2173a3bc74	18fsasd	69.145.118.233	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-04 00:34:35 UTC	click	2e2173a3bc74	18fsasd	69.145.118.210	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-04 00:56:21 UTC	view	2e2173a3bc74	18fsasd	69.145.118.210	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-04 07:32:47 UTC	view	562da13da6ff	34nsgll	73.118.149.203	Mozilla/5.0 (Linux; Android 9; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.76 Mobile Safari/537.36
+102	2019-01-03 08:58:34 UTC	view	4f78f84b2db3	873hfdk	73.118.149.203	Mozilla/5.0 (Linux; Android 9; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.76 Mobile Safari/537.36
+102	2019-01-03 09:22:24 UTC	click	88be04d24f7f	4572gvl	73.118.132.119	Mozilla/5.0 (Linux; Android 9; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.76 Mobile Safari/537.36
+100	2019-01-04 12:59:12 UTC	view	23f07d21638d	80bjlnfj	11.23.70.111	Mozilla/5.1 (iPad; CPU OS 12_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/605.1
+100	2019-01-04 17:16:14 UTC	view	44f37ab153ee	dsgutbk	12.49.112.99	Mozilla/5.0 AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+101	2019-01-04 18:32:33 UTC	view	d0c298aa58b2	sdlkq2y	88.29.110.11	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0
+102	2019-01-03 21:47:52 UTC	view	a14cf702d1e3	6598vnc	94.77.111.201	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/71.0.3578.80 Safari/537.36 Prerender (+https://github.com/prerender/prerender)
+102	2019-01-03 21:47:53 UTC	click	a14cf702d1e3	6598vnc	94.77.111.201	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/71.0.3578.80 Safari/537.36 Prerender (+https://github.com/prerender/prerender)
+102	2019-01-03 21:47:54 UTC	view	a14cf702d1e3	6598vnc	94.77.111.201	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/71.0.3578.80 Safari/537.36 Prerender (+https://github.com/prerender/prerender)
+101	2019-01-04 20:00:12 UTC	view	30059f4c65e21	39gehkj	64.29.99.102	Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1

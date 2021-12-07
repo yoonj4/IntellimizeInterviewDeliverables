@@ -1,0 +1,62 @@
+Total impressions by day:
+ad_id   day     number_of_impressions
+100     2019-01-03      4
+101     2019-01-03      3
+102     2019-01-03      6
+101     2019-01-04      4
+100     2019-01-04      2
+Total impressions by session:
+ad_id   day     ip_address      number_of_impressions
+100     2019-01-03      107.77.173.4    1
+101     2019-01-03      69.145.118.237  1
+101     2019-01-03      73.118.149.203  1
+102     2019-01-03      73.118.149.203  1
+100     2019-01-03      47.223.230.131  2
+101     2019-01-03      71.192.251.93   1
+102     2019-01-03      99.87.238.28    3
+100     2019-01-03      69.145.118.237  1
+101     2019-01-03      69.145.118.233  1
+101     2019-01-04      69.145.118.210  1
+101     2019-01-04      73.118.149.203  1
+102     2019-01-03      73.118.132.119  1
+100     2019-01-04      11.23.70.111    1
+100     2019-01-04      12.49.112.99    1
+101     2019-01-04      88.29.110.11    1
+102     2019-01-03      94.77.111.201   1
+101     2019-01-04      64.29.99.102    1
+Total impressions by user:
+ad_id   user_id number_of_impressions
+100     aar3nbl 1
+101     znfuelkg        1
+101     58ghwkf 1
+102     iuhj4hg 1
+100     48fnwkf 2
+101     lrnhbvio        1
+102     04jfgwh 1
+102     4fqkdjh 1
+102     pfgnvhj 1
+100     26fgjvsk        1
+101     18fsasd 1
+101     34nsgll 1
+102     873hfdk 1
+102     4572gvl 1
+100     80bjlnfj        1
+100     dsgutbk 1
+101     sdlkq2y 1
+102     6598vnc 1
+101     39gehkj 1
+Conversion rates by impression:
+ad_id   conversion_rate
+100     0.14285714285714285
+101     0.2
+102     0.3
+Conversion rates by session:
+ad_id   conversion_rate
+100     0.2
+101     0.25
+102     0.75
+Conversion rates by user:
+ad_id   conversion_rate
+100     0.2
+101     0.2857142857142857
+102     0.42857142857142855
