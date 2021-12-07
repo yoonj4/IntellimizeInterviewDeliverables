@@ -29,17 +29,24 @@ Second, the dashboard application that utilizes this data is only concerned with
 * Ad metric data is provided via an external ingestion API which consumes the ad data directly from the users' machines. They are then batched up as TSV files and stored in an S3 bucket which we have shared access to.
 * The dashboard application will not require data aggregated at a granularity smaller than hourly in the future.
 
-## Rename a file
+## Component Diagram
 
-You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file explorer.
+![Diagram](https://github.com/yoonj4/IntellimizeInterviewDeliverables/blob/main/Untitled%20Diagram.drawio.png)
 
-## Delete a file
+### S3
 
-You can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.
+This is the S3 bucket that the ingestion API will write to.
 
-## Export a file
+* The bucket should only allow the ingestion API to write new files to the bucket.
+* The bucket should give read-only access to the IAM role running on the EMR cluster.
+* Server side encryption should be configured since the data contains Personal Data.
+* Intelligent Tiering should be configured so that older data files are moved into cold storage.
+* Configure server access logging.
+* Configure S3 bucket notifications so that "s3:ObjectCreated:*" events are sent to our SQS queue.
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+### SQS
+
+"s3:ObjectCreated:*" event notifications are sent to an SQS queue so that they can be processed by our Spark Job. A queue is utilized because it allows us to persist the event until we are done processing it (therefore guaranteeing we don't miss data for processing) and we can use long-polling to process multiple files at the same time 
 
 
 # Synchronization
